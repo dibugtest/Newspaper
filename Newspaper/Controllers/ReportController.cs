@@ -506,12 +506,14 @@ namespace Newspaper.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Start of Report Items
                 IEnumerable<int> serviceIds = db.Service.Select(m => m.Id);
 
                 var actives = (from s in db.ServiceAssign
                                from c in db.Customer
                                from p in db.Service
-                               where s.CustomerId == c.Id && s.NewspaperId == p.Id && s.EndedDate >= rep.EndedDate
+                               where s.CustomerId == c.Id && s.NewspaperId == p.Id
+                               && s.EndedDate >= rep.EndedDate// && s.PaperDispatchDate>=rep.StartDate  && s.PaperDispatchDate<=rep.EndedDate
                                select new
                                {
                                    customer = c,
@@ -581,7 +583,7 @@ namespace Newspaper.Controllers
 
                 ReportItem repItemTotal = new ReportItem
                 {
-                    NewspaperName = "जम्मा",
+                    NewspaperName = "hDdf",
                     Active = repItems.Sum(m => m.Active),
                     NotActive = repItems.Sum(m => m.NotActive),
                     Total = repItems.Sum(m => m.Total)
@@ -589,6 +591,157 @@ namespace Newspaper.Controllers
 
                 repItems.Add(repItemTotal);
                 rep.ReportItems = repItems;
+
+                //End of ReportItems
+
+                //Start of Thap Ghat
+                var thap = (from s in db.ServiceAssign
+                            from c in db.Customer
+                            from p in db.Service
+                            where s.CustomerId == c.Id && s.NewspaperId == p.Id
+                           && s.PaperDispatchDate >= rep.StartDate && s.PaperDispatchDate <= rep.EndedDate
+                            // && s.EndedDate >= rep.EndedDate
+                            select new
+                            {
+                                customer = c,
+                                ServiceAssign = s,
+                                service = p
+                            }).GroupBy(m => m.service.Id).Select(m => new
+                            {
+                                serviceId = m.Key,
+                                count = m.Count(),
+                                customerIds = db.ServiceAssign.Where(x => x.NewspaperId == m.Key && x.PaperDispatchDate >= rep.StartDate && x.PaperDispatchDate <= rep.EndedDate).Select(x => x.CustomerId)
+
+                            }).ToList();
+
+                thap = thap.Where(m => serviceIds.Contains(m.serviceId)).ToList();
+
+                var thapCustomer = thap.Select(m => new
+                {
+                    service = db.Service.Find(m.serviceId),
+                    customers = db.Customer.Where(x => m.customerIds.Contains(x.Id)),
+                    count = m.count
+
+                });
+
+                var thapGhat = (from s in db.ServiceAssign
+                                from c in db.Customer
+                                from p in db.Service
+                                where s.CustomerId == c.Id && s.NewspaperId == p.Id
+                                 && s.PaperDispatchDate >= rep.StartDate && s.PaperDispatchDate <= rep.EndedDate
+                                && s.EndedDate < rep.EndedDate
+                                select new
+                                {
+                                    customer = c,
+                                    ServiceAssign = s,
+                                    service = p
+                                }).GroupBy(m => m.service.Id).Select(m => new
+                                {
+                                    serviceId = m.Key,
+                                    count = m.Count(),
+                                    customerIds = db.ServiceAssign.Where(x => x.NewspaperId == m.Key && x.PaperDispatchDate >= rep.StartDate && x.PaperDispatchDate <= rep.EndedDate
+                                && x.EndedDate < rep.EndedDate).Select(x => x.CustomerId)
+                                }).ToList();
+
+                thapGhat = thapGhat.Where(m => serviceIds.Contains(m.serviceId)).ToList();
+
+                var thapGhatCustomer = thapGhat.Select(m => new
+                {
+                    service = db.Service.Find(m.serviceId),
+                    customers = db.Customer.Where(x => m.customerIds.Contains(x.Id)),
+                    count = m.count
+                });
+
+
+                List<ThapGhatItem> ThapGhatItems = new List<ThapGhatItem>();
+
+                foreach (var item in thapCustomer)
+                {
+                    var GhatItem = thapGhatCustomer.FirstOrDefault(m => m.service.Id == item.service.Id);
+
+
+                    ThapGhatItem thapGhatItem = new ThapGhatItem
+                    {
+                        NewspaperName = item.service.NewsPaperName,
+                        Thap = item.customers.Count(),
+                        Ghat = GhatItem != null ? GhatItem.customers.Count() : 0,
+                        Total = 0
+                    };
+
+                    ThapGhatItems.Add(thapGhatItem);
+                }
+
+                ThapGhatItem thapGhatTotal = new ThapGhatItem
+                {
+                    NewspaperName = "hDdf",
+                    Thap = ThapGhatItems.Sum(m => m.Thap),
+                    Ghat = ThapGhatItems.Sum(m => m.Ghat)
+                };
+
+                ThapGhatItems.Add(thapGhatTotal);
+
+                rep.ThapGhatItems = ThapGhatItems;
+                //End of ThapGhat items
+
+
+                //Start of Complement Customers
+                List<ComplementItem> complementItems = new List<ComplementItem>();
+
+                IEnumerable<int> ComplementOfficer = db.Officers.Where(m => m.OfficerType == "कम्प्लिमेन्ट").Select(m => m.Id).ToList();
+
+                IEnumerable<int> ComplementCustomer = db.Customer.Where(m => ComplementOfficer.Contains(m.OfficerId.Value)).Select(m => m.Id).ToList();
+
+
+                IEnumerable<ServiceAssign> complementServiceAssign = db.ServiceAssign.Where(s => s.PaperDispatchDate >= rep.StartDate
+                                                && s.PaperDispatchDate <= rep.EndedDate && s.EndedDate >= rep.EndedDate && ComplementCustomer.Contains(s.CustomerId));
+
+                int goPa = db.Service.FirstOrDefault(m => m.NewsPaperName.Trim() == "uf]/vfkq").Id;
+                int raising = db.Service.FirstOrDefault(m => m.NewsPaperName.Trim() == "/fOlhË g]kfn").Id;
+                int muna = db.Service.FirstOrDefault(m => m.NewsPaperName.Trim() == "d'gf").Id;
+                int madhu = db.Service.FirstOrDefault(m => m.NewsPaperName.Trim() == "dw'ks{").Id;
+                int yuwa = db.Service.FirstOrDefault(m => m.NewsPaperName.Trim() == "o'jfd~r").Id;
+
+                IEnumerable<int> customerIds = complementServiceAssign.Select(m => m.CustomerId);
+
+
+                foreach (var item in ComplementOfficer.ToList())
+                {
+                    IEnumerable<int> filteredCustomerIds = db.Customer.Where(m => customerIds.Contains(m.Id)
+                                                            && m.OfficerId == item).Select(m => m.Id).ToList();
+                    IEnumerable<ServiceAssign> FilteredAssign = complementServiceAssign.Where(m => filteredCustomerIds.Contains(m.CustomerId)).ToList();
+
+                    ComplementItem compItem = new ComplementItem
+                    {
+                        Yuwa = FilteredAssign.Where(m => m.NewspaperId == yuwa) != null ?
+                               FilteredAssign.Where(m => m.NewspaperId == yuwa).Count() : 0,
+                        GoPa = FilteredAssign.Where(m => m.NewspaperId == goPa) != null ?
+                               FilteredAssign.Where(m => m.NewspaperId == goPa).Count() : 0,
+                        Muna = FilteredAssign.Where(m => m.NewspaperId == muna) != null ?
+                               FilteredAssign.Where(m => m.NewspaperId == muna).Count() : 0,
+                        Raising = FilteredAssign.Where(m => m.NewspaperId == raising) != null ?
+                               FilteredAssign.Where(m => m.NewspaperId == raising).Count() : 0,
+                        Madhu = FilteredAssign.Where(m => m.NewspaperId == madhu) != null ?
+                               FilteredAssign.Where(m => m.NewspaperId == madhu).Count() : 0,
+                        Total = FilteredAssign != null ? FilteredAssign.Count() : 0,
+
+                        OfficerName = db.Officers.Find(item).Name
+                    };
+
+                    complementItems.Add(compItem);
+                }
+
+                ComplementItem totalComplementItem = new ComplementItem
+                {
+                    OfficerName = "hDdf",
+                    GoPa = complementItems.Sum(m => m.GoPa),
+                    Madhu = complementItems.Sum(m => m.Madhu),
+                    Muna = complementItems.Sum(m => m.Muna),
+                    Raising = complementItems.Sum(m => m.Raising),
+                    Yuwa = complementItems.Sum(m => m.Yuwa),
+                    Total = complementItems.Sum(m => m.Total)
+                };
+                complementItems.Add(totalComplementItem);
+                rep.ComplementItems = complementItems;
 
                 return View(rep);
             }

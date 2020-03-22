@@ -54,42 +54,107 @@
 }
 else
 {
-    <div>
-
-    </div>
-    <table class="table table-bordered table-responsive">
-        <thead>
-            <tr>
-                <th>
-                    पत्रिका
-                </th>
-                <th>
-                    सक्रिय
-                </th>
-                <th>
-                    म्याद सकिएका
-                </th>
-                <th>जम्मा</th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var item in Model.ReportItems)
-            {
+    <div id="ExpReport">
+        <div>
+            आजका मितिसम्मको जम्मा ग्राहकहरु<br />
+            सक्रिय निस्कृयताको विवरण
+        </div>
+        <table class="table table-bordered table-responsive">
+            <thead>
                 <tr>
-                    <td class="nepalifont" style="font-size:20px;">@item.NewspaperName</td>
-                    <td>@CheckZero(item.Active)</td>
-                    <td>@CheckZero(item.NotActive)</td>
-                    <td>@CheckZero(item.Total)</td>
-                    <td></td>
+                    <th>
+                        पत्रिका
+                    </th>
+                    <th>
+                        सक्रिय
+                    </th>
+                    <th>
+                        निस्कृय
+                    </th>
+                    <th>जम्मा</th>
                 </tr>
-            }
-        </tbody>
+            </thead>
 
-    </table>
+            <tbody>
+                @foreach (var item in Model.ReportItems)
+                {
+                    <tr>
+                        <td class="nepalifont" style="font-size:20px;">@item.NewspaperName</td>
+                        <td>@CheckZero(item.Active)</td>
+                        <td>@CheckZero(item.NotActive)</td>
+                        <td>@CheckZero(item.Total)</td>
+                    </tr>
+                }
+            </tbody>
 
+        </table>
+        <br />
+        <div>
+            सुरु मिति-@StringToUnicode(Model.StartNepDate) र अन्तिम मिति-@StringToUnicode(Model.StartNepDate) भित्रको जम्मा थप/घट ग्राहकहरुको विवरण
+        </div>
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>
+                        पत्रिका
+                    </th>
+                    <th>
+                        थप
+                    </th>
+                    <th>
+                        घट
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ThapGhatItems)
+                {
+                    <tr>
+                        <td class="nepalifont" style="font-size:20px;">@item.NewspaperName</td>
+                        <td>@CheckZero(item.Thap)</td>
+                        <td>@CheckZero(item.Ghat)</td>
+                    </tr>
+                }
+
+
+            </tbody>
+
+        </table>
+        <br />
+        <div>निशुल्क प्रदान गरिएका ग्राहकहरुको विवरण</div>
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>निशुल्क प्रदान गर्ने</th>
+                    <th>गो.प.</th>
+                    <th>रा.ने</th>
+                    <th>मुना</th>
+                    <th>मधुपर्क</th>
+                    <th>युवा</th>
+                    <th>जम्मा</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ComplementItems)
+                {
+                    <tr>
+                        <td class="nepalifont" style="font-size:20px;">@item.OfficerName</td>
+                        <td>@CheckZero(item.GoPa)</td>
+                        <td>@CheckZero(item.Raising)</td>
+                        <td>@CheckZero(item.Muna)</td>
+                        <td>@CheckZero(item.Madhu)</td>
+                        <td>@CheckZero(item.Yuwa)</td>
+                        <td>@CheckZero(item.Total)</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
 }
+
+<br />
+<center><button class="btn" id="btnPrint"><i class="fa fa-print"></i> प्रिन्ट गर्नुहोस</button></center>
 
 
 
@@ -181,9 +246,33 @@ else
                 npdMonth: true,
                 npdYear: true
             });
+
+            $("#btnPrint").click(function (e) {
+                PrintElem("ExpReport");
+            });
         });
 
 
+
+
+
+
+        function PrintElem(elem) {
+            var mywindow = window.open('', 'PRINT', 'height=842,width=590');
+
+            mywindow.document.write('<html><head><style>#myTable_wrapper>.row:nth-child(odd){display:none} #lblduration{display:none} table#mytable tr td:last-child {display: none;} table#mytable tr th:last-child {display: none;} .nepalifont{font-family:Preeti} table {border-collapse: collapse;width: 100%;border: 1px solid ;}th, td {text-align: left;padding: 8px; border: 1px solid ;}tr:nth-child(even){background-color: #f2f2f2;}</style><title></title>');
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(document.getElementById(elem).innerHTML);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+
+            mywindow.print();
+            mywindow.close();
+
+            return true;
+        }
 
     </script>
 }

@@ -41,6 +41,7 @@ namespace Newspaper.Controllers
         // GET: /SalesMan/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.Id = id.Value;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -106,7 +107,7 @@ namespace Newspaper.Controllers
             }
 
         }
-        [HttpPost]
+        [HttpGet]
         public FileResult Export(int? id)
         {
             if (id == null)
@@ -133,15 +134,15 @@ namespace Newspaper.Controllers
                 List<SalesmanVM> objConter = new List<SalesmanVM>();
                 DataTable dt = new DataTable("Grid");
 
-                dt.Columns.AddRange(new DataColumn[9] { new DataColumn("CustomerType"),
-                                            new DataColumn("CustomerId"),
-                                            new DataColumn("CustomerName"),
+                dt.Columns.AddRange(new DataColumn[9] { new DataColumn("Customer Type"),
+                                            new DataColumn("Customer Id"),
+                                            new DataColumn("Customer Name"),
                                             new DataColumn("Address"),
                                             new DataColumn("Phone"),
                                             new DataColumn("Newspaper"),
                                             new DataColumn("Quantity"),
-                                            new DataColumn("Ended"),
-                                            new DataColumn("Paperdispatchdate")
+                                            new DataColumn("Ended Date"),
+                                            new DataColumn("Paperdispatch Date")
                                             });
 
                 foreach (var item in cus)
