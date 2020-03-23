@@ -85,222 +85,161 @@
                         <label>कार्य क्षेत्र</label>  : <font class="nepalifont" style="font-size:20px;">
                             @Model.FirstOrDefault().salesman.AltEmail
                         </font>
-                        @*<label>ग्राहकको प्रकार</label> : @Model.FirstOrDefault().Customer.CustomerType<br />
-
-
-                            <label>ठेगाना</label> :<font class="nepalifont" style="font-size:20px;"> @Model.Select(m => (m.Customer.Address + ", " + m.Customer.Tole)).FirstOrDefault()</font>*@
 
                     </div>
 
-
-
-                    @*<div style="overflow-x:auto;">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th>
-                                        वितरकको नम्बर
-                                    </th>
-
-                                    <td class="nepalifont" style="font-size:20px;">
-                                        @Html.DisplayFor(model => model.SalesManId)
-                                    </td>
-                                </tr>
-
-                                <tr>
-
-                                    <th>
-                                        वितरकको नाम
-                                    </th>
-
-                                    <td class="nepalifont" style="font-size:20px;">
-                                        @Html.DisplayFor(model => model.FullName)
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <th>
-                                        इमेल
-                                    </th>
-
-                                    <td>
-                                        @Html.DisplayFor(model => model.Email)
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-                                    <th>
-
-                                        वितरकको नम्बर
-                                    </th>
-                                    <td class="nepalifont" style="font-size:20px;">
-                                        @Html.DisplayFor(model => model.Phone1)
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <th>
-                                        बैकल्पिक फोन नम्बर
-                                    </th>
-
-                                    <td class="nepalifont" style="font-size:20px;">
-                                        @Html.DisplayFor(model => model.Phone2)
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>*@
                     @if (ViewBag.errmsg == "no cus")
                     {
 
                     }
                     else
                     {
-                    <div style="overflow-x:auto;" class="panel-body">
-                        <label id="lblduration" class="row col-md-3" style="float:right;">
-                            @Html.DropDownList("PaymentType", new List<SelectListItem> { new SelectListItem { Text = "आबधि छानुहोस", Value = "" }, new SelectListItem { Text = "समय अबधि बाकी ", Value = "दिन बाकी" }, new SelectListItem { Text = "समय अबधि समाप्त", Value = "समाप्त" } }, new { id = "ddlduration", @class = "form-control" })
-                        </label>
-                        <label id="lblduration" class="row col-md-3" style="float:right;">
-                            @Html.DropDownList("PaymentType", new List<SelectListItem> { new SelectListItem { Text = "ग्राहक प्रकार छानुहोस", Value = "" }, new SelectListItem { Text = "एजेन्सी", Value = "एजेन्सी" }, new SelectListItem { Text = "नर्मल", Value = "नर्मल" }, new SelectListItem { Text = "स्टाफ", Value = "स्टाफ" }, new SelectListItem { Text = "रिटायर", Value = "रिटायर" }, new SelectListItem { Text = "कम्प्लिमेन्ट", Value = "कम्प्लिमेन्ट" }, new SelectListItem { Text = "नया वितरक", Value = "नया वितरक" } }, new { id = "ddltype", @class = "form-control" })
-                        </label>
-                        <label id="lblduration" class="row col-md-3" style="float:right;">
-                            @Html.DropDownList("term", new SelectList(ViewBag.Newspaper, "value", "text"), "kq", new { @class = "form-control nepalifont", style = "font-size:20px;", id = "ddlnews" })
-                        </label>
-                        <table class="table table-bordered" id="myTable">
-                            <thead>
-                                <tr>
-                                    <th style="width:5px;">
+                        <div style="overflow-x:auto;" class="panel-body">
+                            <label id="lblduration" class="row col-md-3" style="float:right;">
+                                @Html.DropDownList("PaymentType", new List<SelectListItem> { new SelectListItem { Text = "आबधि छानुहोस", Value = "" }, new SelectListItem { Text = "समय अबधि बाकी ", Value = "दिन बाकी" }, new SelectListItem { Text = "समय अबधि समाप्त", Value = "समाप्त" } }, new { id = "ddlduration", @class = "form-control" })
+                            </label>
+                            <label id="lblduration" class="row col-md-3" style="float:right;">
+                                @Html.DropDownList("PaymentType", new List<SelectListItem> { new SelectListItem { Text = "ग्राहक प्रकार छानुहोस", Value = "" }, new SelectListItem { Text = "एजेन्सी", Value = "एजेन्सी" }, new SelectListItem { Text = "नर्मल", Value = "नर्मल" }, new SelectListItem { Text = "स्टाफ", Value = "स्टाफ" }, new SelectListItem { Text = "रिटायर", Value = "रिटायर" }, new SelectListItem { Text = "कम्प्लिमेन्ट", Value = "कम्प्लिमेन्ट" }, new SelectListItem { Text = "नया वितरक", Value = "नया वितरक" } }, new { id = "ddltype", @class = "form-control" })
+                            </label>
+                            <label id="lblduration" class="row col-md-3" style="float:right;">
+                                @Html.DropDownList("term", new SelectList(ViewBag.Newspaper, "value", "text"), "kq", new { @class = "form-control nepalifont", style = "font-size:20px;", id = "ddlnews" })
+                            </label>
+                            <table class="table table-bordered" id="myTable">
+                                <thead>
+                                    <tr>
+                                        <th style="width:5px;">
 
-                                        ग्रा न:
-                                    </th>
-                                    <th style="width:100px;">
-                                        ग्राहकको पुरानाम
-                                    </th>
-                                    <th style="width:30px;">
-                                        पत्रिका
-                                    </th>
-                                    <th style="width:30px;">
-                                        परिमाण
-                                    </th>
+                                            ग्रा न:
+                                        </th>
+                                        <th style="width:100px;">
+                                            ग्राहकको पुरानाम
+                                        </th>
+                                        <th style="width:30px;">
+                                            पत्रिका
+                                        </th>
+                                        <th style="width:30px;">
+                                            परिमाण
+                                        </th>
 
-                                    <th style="width:40px;">
-                                        फोन नम्बर
-                                    </th>
+                                        <th style="width:40px;">
+                                            फोन नम्बर
+                                        </th>
 
-                                    <th style="width:250px;">
-                                        ठेगाना
-                                    </th>
-                                    <th style="width:200px;">
-                                        ग्राहक प्रकार
-                                    </th>
+                                        <th style="width:250px;">
+                                            ठेगाना
+                                        </th>
+                                        <th style="width:200px;">
+                                            ग्राहक प्रकार
+                                        </th>
 
-                                    <th style="width:30px;">
-                                        सुरु
-                                    </th>
-                                    <th style="width:30px;">
-                                        अन्तिम
-                                    </th>
-                                    <th style="width:30px;">
-                                        अबधि
-                                    </th>
+                                        <th style="width:30px;">
+                                            सुरु
+                                        </th>
+                                        <th style="width:30px;">
+                                            अन्तिम
+                                        </th>
+                                        <th style="width:30px;">
+                                            अबधि
+                                        </th>
 
 
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    if ((item.Ended - DateTime.Now).Days < 1)
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
                                     {
-                                        <tr class="danger">
+                                        if ((item.Ended - DateTime.Now).Days < 1)
+                                        {
+                                            <tr class="danger">
 
-                                            <td class="nepalifont" style="font-size:20px;">
-                                                @item.CustomerId
+                                                <td class="nepalifont" style="font-size:20px;">
+                                                    @item.CustomerId
 
-                                            </td>
-                                            <td class="nepalifont" style="font-size:20px;">
-                                                @item.CustomerName
-                                            </td>
-                                            <td class="nepalifont" style="font-size:20px;">
-                                                @item.Newspaper
-                                            </td>
-                                            <td>
-                                                @StringToUnicode(item.Quantity.ToString())
-                                            </td>
-                                            <td class="nepalifont" style="font-size:20px;">
-                                                @item.Phone
-                                            </td>
-
-
-
-                                            <td class="nepalifont" style="font-size:20px;">
-                                                @item.Address
-                                            </td>
-                                            <td>@item.Customertype</td>
-                                            <td>
-                                                @StringToUnicode(item.Paperdispatchdate.ToString())
-                                            </td>
-                                            <td>
-                                                @StringToUnicode(item.EndedDate.ToString())
-                                            </td>
-                                            <td>
-                                                @StringToUnicode(((DateTime.Now - item.Ended).Days).ToString()) समाप्त
-                                            </td>
+                                                </td>
+                                                <td class="nepalifont" style="font-size:20px;">
+                                                    @item.CustomerName
+                                                </td>
+                                                <td class="nepalifont" style="font-size:20px;">
+                                                    @item.Newspaper
+                                                </td>
+                                                <td>
+                                                    @StringToUnicode(item.Quantity.ToString())
+                                                </td>
+                                                <td class="nepalifont" style="font-size:20px;">
+                                                    @item.Phone
+                                                </td>
 
 
 
-                                        </tr>
+                                                <td class="nepalifont" style="font-size:20px;">
+                                                    @item.Address
+                                                </td>
+                                                <td>@item.Customertype</td>
+                                                <td>
+                                                    @StringToUnicode(item.Paperdispatchdate.ToString())
+                                                </td>
+                                                <td>
+                                                    @StringToUnicode(item.EndedDate.ToString())
+                                                </td>
+                                                <td>
+                                                    @StringToUnicode(((DateTime.Now - item.Ended).Days).ToString()) समाप्त
+                                                </td>
+
+
+
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr class="success">
+
+                                                <td class="nepalifont" style="font-size:20px;">
+                                                    @item.CustomerId
+
+                                                </td>
+                                                <td class="nepalifont" style="font-size:20px;">
+                                                    @item.CustomerName
+                                                </td>
+                                                <td class="nepalifont" style="font-size:20px;">
+                                                    @item.Newspaper
+                                                </td>
+                                                <td>
+                                                    @StringToUnicode(item.Quantity.ToString())
+                                                </td>
+                                                <td class="nepalifont" style="font-size:20px;">
+                                                    @item.Phone
+                                                </td>
+
+
+
+                                                <td class="nepalifont" style="font-size:20px;">
+                                                    @item.Address
+                                                </td>
+                                                <td>@item.Customertype</td>
+                                                <td>
+                                                    @StringToUnicode(item.Paperdispatchdate.ToString())
+                                                </td>
+                                                <td>
+                                                    @StringToUnicode(item.EndedDate.ToString())
+                                                </td>
+                                                <td>
+                                                    @StringToUnicode(((item.Ended - DateTime.Now).Days).ToString()) दिन बाकी
+                                                </td>
+
+
+
+                                            </tr>
+                                        }
+
                                     }
-                                    else
-                                    {
-                                        <tr class="success">
+                                </tbody>
 
-                                            <td class="nepalifont" style="font-size:20px;">
-                                                @item.CustomerId
-
-                                            </td>
-                                            <td class="nepalifont" style="font-size:20px;">
-                                                @item.CustomerName
-                                            </td>
-                                            <td class="nepalifont" style="font-size:20px;">
-                                                @item.Newspaper
-                                            </td>
-                                            <td>
-                                                @StringToUnicode(item.Quantity.ToString())
-                                            </td>
-                                            <td class="nepalifont" style="font-size:20px;">
-                                                @item.Phone
-                                            </td>
+                            </table>
 
 
 
-                                            <td class="nepalifont" style="font-size:20px;">
-                                                @item.Address
-                                            </td>
-                                            <td>@item.Customertype</td>
-                                            <td>
-                                                @StringToUnicode(item.Paperdispatchdate.ToString())
-                                            </td>
-                                            <td>
-                                                @StringToUnicode(item.EndedDate.ToString())
-                                            </td>
-                                            <td>
-                                                @StringToUnicode(((item.Ended - DateTime.Now).Days).ToString()) दिन बाकी
-                                            </td>
-
-
-
-                                        </tr>
-                                    }
-
-                                }
-                            </tbody>
-
-                        </table>
-
-
-
-                    </div>
+                        </div>
 
                     }
 
@@ -312,7 +251,12 @@
                 }
                 else
                 {
-                    <center><button class="btn" id="btnPrint"><i class="fa fa-print"></i> प्रिन्ट गर्नुहोस</button></center>
+                    <center>
+                        <button class="btn" id="btnPrint"><i class="fa fa-print"></i> प्रिन्ट गर्नुहोस</button> |
+                        <a href="@Url.Action("Export","Salesman",new {id=ViewBag.Id })"><i class="fa fa-file"></i>Export Excel</a>
+                        
+                        
+                    </center>
                 }
 
 

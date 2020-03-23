@@ -1,0 +1,283 @@
+﻿@model Newspaper.Models.ViewModel.SummaryReport
+@{
+    ViewBag.Title = "Summary Report";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@if (HttpContext.Current.Request.HttpMethod == "GET")
+{
+    using (Html.BeginForm("ActiveReport", "Report", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <br />
+        <div class="col-md-6 col-lg-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title"><center><h4>सुरु/अन्तिम मिति छानुहोस</h4></center></h1>
+                </div>
+
+                <div class="panel-body">
+                    @if (TempData["message"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["message"]</div>
+                    }
+
+
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>सुरु मिति छानुहोस</label>
+                            @Html.TextBoxFor(m => m.StartNepDate, new { placeholder = "सुरु मिति", id = "txtStartNepDate", @class = "form-control", required = true })
+
+                            @Html.TextBoxFor(m => m.StartDate, new { id = "txtStartDate", @class = "form-control", required = true })
+
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>अन्तिम मिति छानुहोस</label>
+                            @Html.TextBoxFor(m => m.EndNepDate, new { placeholder = "अन्तिम मिति", id = "txtEndNepDate", @class = "form-control", required = true })
+
+                            @Html.TextBoxFor(m => m.EndedDate, new { id = "txtEndDate", @class = "form-control", required = true })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-10">
+                            <input type="submit" value="खोज्नुहोस" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div id="ExpReport">
+        <div>
+            आजका मितिसम्मको जम्मा ग्राहकहरु<br />
+            सक्रिय निस्कृयताको विवरण
+        </div>
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        पत्रिका
+                    </th>
+                    <th>
+                        सक्रिय
+                    </th>
+                    <th>
+                        निस्कृय
+                    </th>
+                    <th>जम्मा</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.ReportItems)
+                {
+                    <tr>
+                        <td class="nepalifont" style="font-size:20px;">@item.NewspaperName</td>
+                        <td>@CheckZero(item.Active)</td>
+                        <td>@CheckZero(item.NotActive)</td>
+                        <td>@CheckZero(item.Total)</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        <br />
+        <div>
+            सुरु मिति-@StringToUnicode(Model.StartNepDate) र अन्तिम मिति-@StringToUnicode(Model.StartNepDate) भित्रको जम्मा थप/घट ग्राहकहरुको विवरण
+        </div>
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>
+                        पत्रिका
+                    </th>
+                    <th>
+                        थप
+                    </th>
+                    <th>
+                        घट
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ThapGhatItems)
+                {
+                    <tr>
+                        <td class="nepalifont" style="font-size:20px;">@item.NewspaperName</td>
+                        <td>@CheckZero(item.Thap)</td>
+                        <td>@CheckZero(item.Ghat)</td>
+                    </tr>
+                }
+
+
+            </tbody>
+
+        </table>
+        <br />
+        <div>निशुल्क प्रदान गरिएका ग्राहकहरुको विवरण</div>
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>निशुल्क प्रदान गर्ने</th>
+                    <th>गो.प.</th>
+                    <th>रा.ने</th>
+                    <th>मुना</th>
+                    <th>मधुपर्क</th>
+                    <th>युवा</th>
+                    <th>जम्मा</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ComplementItems)
+                {
+                    <tr>
+                        <td class="nepalifont" style="font-size:20px;">@item.OfficerName</td>
+                        <td>@CheckZero(item.GoPa)</td>
+                        <td>@CheckZero(item.Raising)</td>
+                        <td>@CheckZero(item.Muna)</td>
+                        <td>@CheckZero(item.Madhu)</td>
+                        <td>@CheckZero(item.Yuwa)</td>
+                        <td>@CheckZero(item.Total)</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<br />
+<center><button class="btn" id="btnPrint"><i class="fa fa-print"></i> प्रिन्ट गर्नुहोस</button></center>
+
+
+
+
+@helper StringToUnicode(string data)
+{
+    string uni = "";
+    foreach (char c in data)
+    {
+        var charCode = "U+" + ((int)c).ToString("X4");
+        switch (charCode)
+        {
+            case "U+0030":
+                uni += "०";
+                break;
+            case "U+0031":
+                uni += "१";
+                break;
+            case "U+0032":
+                uni += "२";
+                break;
+            case "U+0033":
+                uni += "३";
+                break;
+            case "U+0034":
+                uni += "४";
+                break;
+            case "U+0035":
+                uni += "५";
+                break;
+            case "U+0036":
+                uni += "६";
+                break;
+            case "U+0037":
+                uni += "७";
+                break;
+            case "U+0038":
+                uni += "८";
+                break;
+            case "U+0039":
+                uni += "९";
+                break;
+            default:
+                uni += c;
+                break;
+        }
+    }
+    @uni
+}
+@helper CheckZero(decimal data)
+{
+    if (data == 0)
+    {
+        @StringToUnicode("0")
+    }
+    else
+    {
+        @StringToUnicode(data.ToString())
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-ui-1.10.1.custom.min.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" />
+    <link href="~/bootstrap/nepali.datepicker.v2.2.min.css" rel="stylesheet" />
+    <script src="~/bootstrap/nepali.datepicker.v2.2.min.js"></script>
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $('#txtStartNepDate', 'body').nepaliDatePicker({
+
+                onChange: function () {
+                    $('#txtStartNepDate').val();
+                    $('#txtStartDate').val(BS2AD($('#txtStartNepDate').val()));
+                },
+                npdMonth: true,
+                npdYear: true
+            });
+            $('#txtEndNepDate', 'body').nepaliDatePicker({
+
+                onChange: function () {
+                    $('#txtEndNepDate').val();
+                    $('#txtEndDate').val(BS2AD($('#txtEndNepDate').val()));
+                },
+                npdMonth: true,
+                npdYear: true
+            });
+
+            $("#btnPrint").click(function (e) {
+                PrintElem("ExpReport");
+            });
+        });
+
+
+
+
+
+
+        function PrintElem(elem) {
+            var mywindow = window.open('', 'PRINT', 'height=842,width=590');
+
+            mywindow.document.write('<html><head><style>#myTable_wrapper>.row:nth-child(odd){display:none} #lblduration{display:none} table#mytable tr td:last-child {display: none;} table#mytable tr th:last-child {display: none;} .nepalifont{font-family:Preeti} table {border-collapse: collapse;width: 100%;border: 1px solid ;}th, td {text-align: left;padding: 8px; border: 1px solid ;}tr:nth-child(even){background-color: #f2f2f2;}</style><title></title>');
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(document.getElementById(elem).innerHTML);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+
+            mywindow.print();
+            mywindow.close();
+
+            return true;
+        }
+
+    </script>
+}
+
+
+
+
+

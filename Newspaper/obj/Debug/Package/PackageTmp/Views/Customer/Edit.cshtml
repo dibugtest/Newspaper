@@ -161,9 +161,10 @@
             </div>
             <div class="col-md-3" id="divTypeDetail">
                 <div class="form-group">
-                    <label>प्रकारको बिबरण</label> @Html.ValidationMessageFor(model => model.TypeDetail, "", new { @class = "text-danger" })
-
-                    @Html.TextBoxFor(model => model.TypeDetail, new { @class = "form-control nepalifont", id = "txtTypeDetail", style = "font-size:20px;" })
+                    <label>कर्मचारी बिबरण</label>
+                    @Html.ValidationMessageFor(model => model.OfficerId, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(model => model.OfficerId, null, new { @class = "nepalifont form-control", style = "font-size:20px;" })
+                    @*@Html.TextBoxFor(model => model.TypeDetail, new { @class = "form-control", id = "txtTypeDetail" })*@
 
                 </div>
             </div>

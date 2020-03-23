@@ -37,9 +37,13 @@
     <br />
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h1 class="panel-title"><center><h4>
-    ग्राहक दर्ता गर्नुहोस्
-</h4></center></h1>
+            <h1 class="panel-title">
+                <center>
+                    <h4>
+                        ग्राहक दर्ता गर्नुहोस्
+                    </h4>
+                </center>
+            </h1>
         </div>
 
         <div class="panel-body">
@@ -61,37 +65,6 @@
 
                 </div>
             </div>
-            @*<div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.SalesManId)  @Html.ValidationMessageFor(model => model.SalesManId, "", new { @class = "text-danger" })
-
-                @Html.DropDownList("SalesManId", null, "---Select Disributor---", htmlAttributes: new { @class = "form-control" })
-
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.ServiceId)  @Html.ValidationMessageFor(model => model.ServiceId, "", new { @class = "text-danger" })
-
-                @Html.DropDownList("ServiceId", null, "---Select NewsPaper---", htmlAttributes: new { @class = "form-control" })
-
-            </div>
-        </div>*@
-
-            @*@if( Session["Category"].ToString() == "SuperAdmin")
-        {
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.BranchId)  @Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
-
-                @Html.DropDownList("BranchId", null, "---Select Branch---", htmlAttributes: new { @class = "form-control" })
-
-            </div>
-        </div>
-        }*@
-
-
 
             <div class="col-md-6">
                 <div class="form-group">
@@ -114,23 +87,7 @@
 
                 </div>
             </div>
-            @*<div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.MiddleName)@Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
 
-                @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control" })
-
-            </div>
-        </div>*@
-
-            @*<div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.LastName) @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-
-                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "txtLastName" })
-
-            </div>
-        </div>*@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>फोन नम्बर </label> @Html.ValidationMessageFor(model => model.MPhone, "", new { @class = "text-danger" })
@@ -169,7 +126,16 @@
                     <label>प्रदेश<font style="color:red;">*</font></label>
                     @Html.ValidationMessageFor(model => model.Provience, "", new { @class = "text-danger" })
 
-                    @Html.DropDownList("Provience", new List<SelectListItem>() { new SelectListItem() { Text = "--प्रदेश छान्नुहोस--", Value = "" }, new SelectListItem() { Text = "१", Value = "१" }, new SelectListItem() { Text = "२", Value = "२" }, new SelectListItem() { Text = "३", Value = "३" }, new SelectListItem() { Text = "४", Value = "४" }, new SelectListItem() { Text = "५", Value = "५" }, new SelectListItem() { Text = "६", Value = "६" }, new SelectListItem() { Text = "७", Value = "७" } }, new { @class = "form-control", id = "ddlProvience" })
+                    @Html.DropDownList("Provience", new List<SelectListItem>() {
+                                                   new SelectListItem() { Text = "--प्रदेश छान्नुहोस--", Value = "" },
+                                                   new SelectListItem() { Text = "१", Value = "१" },
+                                                   new SelectListItem() { Text = "२", Value = "२" },
+                                                   new SelectListItem() { Text = "३", Value = "३" },
+                                                   new SelectListItem() { Text = "४", Value = "४" },
+                                                   new SelectListItem() { Text = "५", Value = "५" },
+                                                   new SelectListItem() { Text = "६", Value = "६" },
+                                                    new SelectListItem() { Text = "७", Value = "७" } },
+                                                    new { @class = "form-control", id = "ddlProvience" })
 
 
                 </div>
@@ -181,7 +147,11 @@
                         ग्राहकको जानकारी@*(customer info)*@
                     </label>
                     @Html.ValidationMessageFor(model => model.CustomerInfo, "", new { @class = "text-danger" })
-                    @Html.DropDownList("CustomerInfo", new List<SelectListItem> { new SelectListItem() { Text = "---छान्नुहोस---", Value = "" }, new SelectListItem() { Text = "संस्थागत", Value = "संस्थागत" }, new SelectListItem() { Text = "व्यक्तिगत", Value = "व्यक्तिगत" } }, new { @class = "form-control", id = "ddlCustomerInfo" })
+                    @Html.DropDownList("CustomerInfo", new List<SelectListItem>
+                                                       { new SelectListItem() { Text = "---छान्नुहोस---", Value = "" },
+                                                       new SelectListItem(){ Text = "संस्थागत", Value = "संस्थागत" },
+                                                       new SelectListItem() { Text = "व्यक्तिगत", Value = "व्यक्तिगत" } },
+                                                       new { @class = "form-control", id = "ddlCustomerInfo" })
                     @*@Html.DropDownList("CustomerInfoId",new List<selectlistitem>{}     (ViewBag.CustomerInfo,"Value","Text"),"--Select Individual/Organization---",new { @class = "form-control" ,id="ddlCustomerInfo"})*@
                 </div>
             </div>
@@ -192,30 +162,29 @@
                     </label>
                     @Html.ValidationMessageFor(model => model.CustomerType, "", new { @class = "text-danger" })
 
-                    @Html.DropDownList("CustomerType", new List<SelectListItem> { new SelectListItem { Text = "---छान्नुहोस---", Value = "" }, new SelectListItem { Text = "एजेन्सी", Value = "एजेन्सी" }, new SelectListItem { Text = "नर्मल", Value = "नर्मल" }, new SelectListItem { Text = "स्टाफ", Value = "स्टाफ" }, new SelectListItem { Text = "रिटायर", Value = "रिटायर" }, new SelectListItem { Text = "कम्प्लिमेन्ट", Value = "कम्प्लिमेन्ट" }, new SelectListItem { Text = "नया वितरक", Value = "नया वितरक" } }, new { @class = "form-control", id = "ddlCustomerType" })
+                    @Html.DropDownList("CustomerType", new List<SelectListItem>
+                                                       { new SelectListItem { Text = "---छान्नुहोस---", Value = "" },
+                                                           new SelectListItem { Text = "एजेन्सी", Value = "एजेन्सी" },
+                                                           new SelectListItem { Text = "नर्मल", Value = "नर्मल" },
+                                                           new SelectListItem { Text = "स्टाफ", Value = "स्टाफ" },
+                                                           new SelectListItem { Text = "रिटायर", Value = "रिटायर" },
+                                                           new SelectListItem { Text = "कम्प्लिमेन्ट", Value = "कम्प्लिमेन्ट" },
+                                                           new SelectListItem { Text = "नया वितरक", Value = "नया वितरक" } },
+                                                           new { @class = "form-control", id = "ddlCustomerType" })
                     @*@Html.DropDownList("CategoryId", null, "---Select Category---", htmlAttributes: new { @class = "form-control" })*@
 
                 </div>
             </div>
             <div class="col-md-3" id="divTypeDetail">
                 <div class="form-group">
-                    <label>प्रकारको बिबरण</label>
-                    @Html.ValidationMessageFor(model => model.TypeDetail, "", new { @class = "text-danger" })
-
-                    @Html.TextBoxFor(model => model.TypeDetail, new { @class = "form-control", id = "txtTypeDetail" })
+                    <label>कर्मचारी बिबरण</label>
+                    @Html.ValidationMessageFor(model => model.OfficerId, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(model => model.OfficerId, null, new { @class = "nepalifont form-control", style = "font-size:20px;" })
+                    @*@Html.TextBoxFor(model => model.TypeDetail, new { @class = "form-control", id = "txtTypeDetail" })*@
 
                 </div>
             </div>
 
-
-            @*<div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Qunatity) @Html.ValidationMessageFor(model => model.Qunatity, "", new { @class = "text-danger" })
-
-                @Html.TextBoxFor(model => model.Qunatity, new { @class = "form-control" })
-
-            </div>
-        </div>*@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>
@@ -271,36 +240,6 @@
                 </div>
             </div>
 
-            @*<div class="col-md-3" id="divAmount">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Amount) @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
-
-                @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", id = "txtAmount", @required = true })
-
-            </div>
-        </div>
-
-        <div class="col-md-2">
-            <div class="form-group">
-                <label>PaperDispatch Date</label>  @Html.ValidationMessageFor(model => model.NepaliDate, "", new { @class = "text-danger" })
-
-                @Html.TextBoxFor(model => model.NepaliDate, new { id = "txtNepaliDate", @class = "form-control" })
-
-            </div>
-        </div>
-
-            <div class="col-md-3">
-                <div class="form-group">
-
-                    @Html.LabelFor(model => model.Duration) @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
-
-                    @Html.DropDownList("Duration", new List<SelectListItem>() { new SelectListItem() { Text = "--Select Duration--", Value = "" }, new SelectListItem() { Text = "Monthly", Value = "30" }, new SelectListItem() { Text = "Quarterly", Value = "90" }, new SelectListItem() { Text = "Half Quarterly", Value = "183" }, new SelectListItem() { Text = "Yearly", Value = "365" } }, new { @class = "form-control", id = "ddlProvience" })
-                </div>
-            </div>
-
-        @Html.HiddenFor(m => m.PaperDispatchDate, new { id = "txtPaperDispatchDate" })*@
-
-
             <div class="form-group">
 
                 <div class="col-md-10 col-md-offset-5">
@@ -328,7 +267,7 @@
     <script type="text/javascript">
 
 
-        $(document).ready(function () {  @*<script src="https//cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js">       </script>*@
+        $(document).ready(function () {
 
             $('#txtNepaliDate', 'body').nepaliDatePicker({
 
@@ -337,23 +276,9 @@
                     $('#txtPaperDispatchDate').val(BS2AD($('#txtNepaliDate').val()));
                 },
                 npdMonth: true,
-                npdYear:true
+                npdYear: true
             }
             );
-
-            //$('#txtNepaliDate')({
-            //    npdMonth: true,
-            //    npdYear: true
-            //});
-
-
-            //$("#btnSubmit").click(function () {
-            //    $('input[type=text]').each(function () {
-
-            //        $(this).val('');
-            //    });
-            //});
-
 
             $("#divAmount").hide();
             $("#divTypeDetail").hide();
@@ -369,10 +294,6 @@
                     $("#divAmount").hide();
                 }
             });
-
-
-
-
 
             $("#btnSubmit").click(function () {
                 var firstName = $("#txtFirstName").val();

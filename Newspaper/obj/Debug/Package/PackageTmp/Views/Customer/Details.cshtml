@@ -43,7 +43,7 @@
 
                         <tr>
                             <th>
-                               ग्राहक नम्बर
+                                ग्राहक नम्बर
                             </th>
 
                             <td class="nepalifont" style="font-size:20px;">
@@ -51,65 +51,18 @@
                             </td>
                         </tr>
 
-                        @*<tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.SalesManId)
-                            </th>
 
-                            <td>
-                                @Html.DisplayFor(model => model.SaleMan.FullName)
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Newspaper
-                            </th>
-
-                            <td>
-                                @Html.DisplayFor(model => model.Service.NewsPaperName)
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Branch
-                            </th>
-
-                            <td>
-                                @Html.DisplayFor(model => model.Branch.BranchName)
-                            </td>
-                        </tr>*@
                         <tr>
 
                             <th>
-                               ग्राहकको नाम
+                                ग्राहकको नाम
                             </th>
 
                             <td class="nepalifont" style="font-size:20px;">
                                 @Html.DisplayFor(model => model.FirstName)
                             </td>
                         </tr>
-                        @*<tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.MiddleName)
-                            </th>
 
-
-                            <td>
-                                @Html.DisplayFor(model => model.MiddleName)
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <th>
-                                @Html.DisplayNameFor(model => model.LastName)
-                            </th>
-
-
-
-                            <td>
-                                @Html.DisplayFor(model => model.LastName)
-                            </td>
-                        </tr>*@
                         <tr>
                             <th>
                                 फोन नम्बर
@@ -143,7 +96,7 @@
                         </tr>
                         <tr>
                             <th>
-                                घर नम्बर 
+                                घर नम्बर
                             </th>
 
                             <td class="nepalifont" style="font-size:20px;">
@@ -152,16 +105,16 @@
                         </tr>
                         <tr>
                             <th>
-                               टोल
+                                टोल
                             </th>
 
                             <td class="nepalifont" style="font-size:20px;">
                                 @Html.DisplayFor(model => model.Tole)
                                 </>
-</tr>
+                        </tr>
                         <tr>
                             <th>
-                                ठेगाना 
+                                ठेगाना
                             </th>
 
                             <td class="nepalifont" style="font-size:20px;">
@@ -172,7 +125,7 @@
                         <tr>
 
                             <th>
-                                प्रदेस 
+                                प्रदेस
                             </th>
 
                             <td>
@@ -242,7 +195,7 @@
 
                         <tr>
                             <th>
-                                दर्ता भएको मिति 
+                                दर्ता भएको मिति
                             </th>
                             <td>
                                 @Model.RegisterDate.ToShortDateString()
@@ -250,48 +203,24 @@
                         </tr>
                         <tr>
                             <th>
-                               दर्ता गर्नेको नाम 
+                                दर्ता गर्नेको नाम
                             </th>
                             <td>
                                 @Html.DisplayFor(model => model.RegisteredBy)
                             </td>
                         </tr>
-                        @*<tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.PaperDispatchDate)
-                            </th>
-
-                            <td>
-                                @Model.PaperDispatchDate.ToShortDateString()
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.EndedDate)
-                            </th>
-
-                            <td>
-                                @Html.DisplayFor(model => model.EndedDate)
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Qunatity)
-                            </th>
-
-                            <td>
-                                @Html.DisplayFor(model => model.Qunatity)
-                            </td>
-
-                        </tr>*@
 
                     </table>
                 </div>
-
+                @Html.ActionLink(
+                "Delete",
+                "Delete",
+                new { id = Model.Id },
+                new { onclick = "return confirm('Are you sure you wish to delete this Customer?');" })
+                
             </div>
             <div class="col-md-2"></div>
         </div>
     </div>
-    </div>
+</div>
 

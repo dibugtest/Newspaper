@@ -1,0 +1,131 @@
+﻿@model Newspaper.Models.Officer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+
+
+
+<div>
+
+    <br />
+    <<div class="col-md-7 col-lg-offset-3">
+        <br />
+        <p>
+            @Html.ActionLink("कर्मचारीहरु", "Index", "", new { @class = "btn btn-info" })
+        </p>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1 class="panel-title"><center><h4>कर्मचारी विवरण</h4></center></h1>
+            </div>
+
+            <div class="panel-body">
+                <div style="overflow-x:auto;">
+                    <table class="table table-bordered">
+
+                        <tr>
+                            <th>
+                                PIS नम्बर
+                            </th>
+
+
+                            <td class="nepalifont" style="font-size:20px;">
+                                @Html.DisplayFor(model => model.PISNo)
+                            </td>
+                        </tr>
+
+
+                        <tr>
+
+                            <th>
+                                नाम
+                            </th>
+
+                            <td class="nepalifont" style="font-size:20px;">
+                                @Html.DisplayFor(model => model.Name)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                फोन नम्बर
+                            </th>
+
+
+
+                            <td class="nepalifont" style="font-size:20px;">
+                                @Html.DisplayFor(model => model.Phone)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                इमेल
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                अफिस ठेगाना
+                            </th>
+
+
+
+                            <td class="nepalifont" style="font-size:20px;">
+                                @Html.DisplayFor(model => model.OfficeAddress)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                प्रकार
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.OfficerType)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Status
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Status)
+                                </>
+                        </tr>
+
+
+                    </table>
+                </div>
+                @Html.ActionLink(
+                "Delete",
+                "Delete",
+                new { id = Model.Id },
+                new { onclick = "return confirm('Are you sure you wish to delete this Customer?');" })
+
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+

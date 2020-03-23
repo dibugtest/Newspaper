@@ -1,0 +1,209 @@
+﻿@model IEnumerable<Newspaper.Models.Officer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    #myTable th, #myTable td {
+        text-align: left;
+        padding: 12px;
+    }
+
+    #myTable tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+        #myTable tr.header, #myTable tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    .dataTables_filter input {
+        font-family: Preeti;
+        font-size: 20px;
+    }
+</style>
+
+
+<div class="module">
+
+    <div class="module-body">
+        <br />
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1 class="panel-title"><center><h4>कर्मचारीहरु </h4></center></h1>
+            </div>
+
+            <div class="panel-body">
+
+                @Html.ActionLink("थप्नुहोस", "Create", "Officer", new { @class = "btn btn-primary", title = "Create new Officer" })
+             
+                <div style="padding-top:10px;">
+                    <table class="table table-bordered" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                   PIS नम्बर
+                                </th>
+                                <th>
+                                   नाम
+                                </th>
+
+                                <th>
+                                  ओफिस ठेगाना
+                                </th>
+                                <th>
+                                  प्रकार
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th style="width:100px;">
+                                    फोन नम्बर
+                                </th>
+                                <th style="width:250px;">कार्य</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td class="nepalifont" style="font-size:20px;">
+                                    @item.PISNo
+                                </td>
+                                <td class="nepalifont" style="font-size:20px;">
+                                    @item.Name
+                                </td>
+                                <td class="nepalifont" style="font-size:20px;">
+                                    @item.OfficeAddress
+                                </td>
+                                <td>
+                                    @item.OfficerType
+                                </td>
+                                <td>
+                                    @item.Status
+                                </td>
+                                <td class="nepalifont" style="font-size:20px;">
+                                    @item.Phone
+                                </td>
+                                <td>
+                                    @Html.ActionLink("सच्याउनुहोस", "Edit", new { id = item.Id }, new { @class = "btn btn-primary", title = "Edit Officer" })|
+                                    @Html.ActionLink("थप हेर्नुहोस", "Details", new { id = item.Id }, new { @class = "btn btn-success", title = "Show Officer Detail" })
+
+                                </td>
+                            </tr>
+
+
+                            }
+                        <tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<button class="myMenuLink btn btn-info" id="but1" style="float:right;"><u>माथि जानुहोस</u></button>
+
+
+<br />
+@helper StringToUnicode(string data)
+{
+    string uni = "";
+    foreach (char c in data)
+    {
+        var charCode = "U+" + ((int)c).ToString("X4");
+        switch (charCode)
+        {
+            case "U+0030":
+                uni += "०";
+                break;
+            case "U+0031":
+                uni += "१";
+                break;
+            case "U+0032":
+                uni += "२";
+                break;
+            case "U+0033":
+                uni += "३";
+                break;
+            case "U+0034":
+                uni += "४";
+                break;
+            case "U+0035":
+                uni += "५";
+                break;
+            case "U+0036":
+                uni += "६";
+                break;
+            case "U+0037":
+                uni += "७";
+                break;
+            case "U+0038":
+                uni += "८";
+                break;
+            case "U+0039":
+                uni += "९";
+                break;
+            default:
+                uni += c;
+                break;
+        }
+    }
+    @uni
+}
+@helper CheckZero(decimal data)
+{
+    if (data == 0)
+    {
+        @StringToUnicode("0.00")
+    }
+    else
+    {
+        @StringToUnicode(data.ToString())
+    }
+}
+
+
+
+
+@section Scripts {
+    <link rel="stylesheet" href="~/Content/DataTables/css/jquery.dataTables.yadcf.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="~/Content/DataTables/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="~/Content/DataTables/css/dataTables.bootstrap.css" />
+
+
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Scripts/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/datatables/dataTables.bootstrap.js">
+    </script>
+    <script src="~/Scripts/datatables/bootstrap3-typeahead.js"></script>
+    <script src="~/Content/DataTables/css/jquery.dataTables.yadcf.js"></script>
+    <script type="text/javascript">
+      
+        $(document).ready(function () {
+            $("body div.myTable input").addClass("nepalifont");
+            var dataSrc = [];
+
+            var table = $("#myTable").DataTable({
+                "pageLength": 50
+            });
+        });
+
+    </script>
+}
+
