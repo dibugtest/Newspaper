@@ -75,7 +75,7 @@ namespace Newspaper.Controllers
             ViewBag.SalesManId = new SelectList(db.SalesMan, "Id", "FullName");
             ViewBag.ServiceId = new SelectList(db.Service, "Id", "NewsPaperName");
             ViewBag.BranchId = new SelectList(db.Branch, "BranchId", "BranchName");
-            ViewBag.OfficerId = new SelectList(db.Officers.Where(m => m.Status && m.OfficerType == "कम्प्लिमेन्ट"), "Id", "Name");
+            ViewBag.OfficerId = new SelectList(db.Officers.Where(m => m.Status && m.OfficerType == "निशुल्क प्रदान गर्ने"), "Id", "Name");
             return View();
         }
 
@@ -89,7 +89,7 @@ namespace Newspaper.Controllers
                 ViewBag.SalesManId = new SelectList(db.SalesMan, "Id", "FullName");
                 ViewBag.ServiceId = new SelectList(db.Service, "Id", "NewsPaperName");
                 ViewBag.BranchId = new SelectList(db.Branch, "BranchId", "BranchName");
-                ViewBag.OfficerId = new SelectList(db.Officers.Where(m => m.Status && m.OfficerType == "कम्प्लिमेन्ट"), "Id", "Name");
+                ViewBag.OfficerId = new SelectList(db.Officers.Where(m => m.Status && m.OfficerType == "निशुल्क प्रदान गर्ने"), "Id", "Name");
 
                 return View(customer);
             }
@@ -128,7 +128,7 @@ namespace Newspaper.Controllers
                 return HttpNotFound();
             }
             ViewBag.BranchId = new SelectList(db.Branch, "BranchId", "BranchName", customer.BranchId);
-            ViewBag.OfficerId = new SelectList(db.Officers.Where(m => m.Status && m.OfficerType == "कम्प्लिमेन्ट"), "Id", "Name",customer.OfficerId!=null?customer.OfficerId:null);
+            ViewBag.OfficerId = new SelectList(db.Officers.Where(m => m.Status && m.OfficerType == "निशुल्क प्रदान गर्ने"), "Id", "Name",customer.OfficerId!=null?customer.OfficerId:null);
             return View(customer);
         }
 
@@ -137,7 +137,7 @@ namespace Newspaper.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Customer customer)
         {
-            ViewBag.OfficerId = new SelectList(db.Officers.Where(m => m.Status && m.OfficerType == "कम्प्लिमेन्ट"), "Id", "Name", customer.OfficerId != null ? customer.OfficerId : null);
+            ViewBag.OfficerId = new SelectList(db.Officers.Where(m => m.Status && m.OfficerType == "निशुल्क प्रदान गर्ने"), "Id", "Name", customer.OfficerId != null ? customer.OfficerId : null);
 
             if (ModelState.IsValid)
             {

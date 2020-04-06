@@ -52,8 +52,8 @@ namespace Newspaper.Controllers
         public ActionResult Create()
         {
             ViewBag.OfficerType = new List<SelectListItem> { new SelectListItem{Text = "---छान्नुहोस---", Value = ""},
-                                                            new SelectListItem{Text="कम्प्लिमेन्ट",Value="कम्प्लिमेन्ट" },
-                                                            new SelectListItem{Text="नर्मल",Value="नर्मल" } };
+                                                            new SelectListItem{Text="निशुल्क प्रदान गर्ने",Value="निशुल्क प्रदान गर्ने" },
+                                                            new SelectListItem{Text="अन्य",Value="अन्य" } };
             return View();
         }
 
@@ -65,8 +65,8 @@ namespace Newspaper.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.OfficerType = new List<SelectListItem> { new SelectListItem{Text = "---छान्नुहोस---", Value = ""},
-                                                            new SelectListItem{Text="कम्प्लिमेन्ट",Value="कम्प्लिमेन्ट" },
-                                                            new SelectListItem{Text="नर्मल",Value="नर्मल" } };
+                                                            new SelectListItem{Text="निशुल्क प्रदान गर्ने",Value="निशुल्क प्रदान गर्ने" },
+                                                            new SelectListItem{Text="अन्य",Value="अन्य" } };
                 return View(officer);
             }
             else
@@ -104,8 +104,8 @@ namespace Newspaper.Controllers
                 return HttpNotFound();
             }
             List<SelectListItem> officerTypes = new List<SelectListItem> { new SelectListItem{Text = "---छान्नुहोस---", Value = ""},
-                                                            new SelectListItem{Text="कम्प्लिमेन्ट",Value="कम्प्लिमेन्ट" },
-                                                            new SelectListItem{Text="नर्मल",Value="नर्मल" } };
+                                                            new SelectListItem{Text="निशुल्क प्रदान गर्ने",Value="निशुल्क प्रदान गर्ने" },
+                                                            new SelectListItem{Text="अन्य",Value="अन्य" } };
             ViewBag.OfficerType = new SelectList(officerTypes, "Value", "Text",officer.OfficerType);
             return View(officer);
         }
@@ -116,8 +116,8 @@ namespace Newspaper.Controllers
         public ActionResult Edit(Officer officer)
         {
             List<SelectListItem> officerTypes = new List<SelectListItem> { new SelectListItem{Text = "---छान्नुहोस---", Value = ""},
-                                                            new SelectListItem{Text="कम्प्लिमेन्ट",Value="कम्प्लिमेन्ट" },
-                                                            new SelectListItem{Text="नर्मल",Value="नर्मल" } };
+                                                            new SelectListItem{Text="निशुल्क प्रदान गर्ने",Value="निशुल्क प्रदान गर्ने" },
+                                                            new SelectListItem{Text="अन्य",Value="अन्य" } };
             ViewBag.OfficerType = new SelectList(officerTypes, "Value", "Text", officer.OfficerType);
             if (ModelState.IsValid)
             {
