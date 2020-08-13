@@ -105,7 +105,6 @@ namespace Newspaper.Controllers
                 ViewBag.errmsg = "no cus";
                 return View(objConter.AsEnumerable());
             }
-
         }
         [HttpGet]
         public FileResult Export(int? id)
@@ -141,16 +140,17 @@ namespace Newspaper.Controllers
                                             new DataColumn("Phone"),
                                             new DataColumn("Newspaper"),
                                             new DataColumn("Quantity"),
-                                            new DataColumn("Ended Date"),
-                                            new DataColumn("Paperdispatch Date")
+                                            new DataColumn("Paperdispatch Date"),
+                                            new DataColumn("Ended Date")
                                             });
 
                 foreach (var item in cus)
                 {
                     dt.Rows.Add(item.customer.CustomerType, item.customer.CustomerId,
                                 item.customer.FirstName, item.customer.Address, item.customer.Address,
-                                item.service.NewsPaperName, item.ServiceAssign.Quantity, item.ServiceAssign.EndedDate,
-                                item.ServiceAssign.PaperDispatchDate);
+                                item.service.NewsPaperName, item.ServiceAssign.Quantity, ADTOBS.EngToNep(item.ServiceAssign.PaperDispatchDate).ToString(),
+                                ADTOBS.EngToNep(item.ServiceAssign.EndedDate).ToString()
+                                );
                 }
 
                 using (XLWorkbook wb = new XLWorkbook())

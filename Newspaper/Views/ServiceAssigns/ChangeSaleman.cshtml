@@ -112,7 +112,7 @@
                 <div class="form-group">
 
                     <div class="col-md-10 col-md-offset-5">
-                        <input type="submit" value="नियुक्ति गर्नुहोस" class="btn btn-info" />
+                        <input type="submit" value="नियुक्ति गर्नुहोस" class="btn btn-info btnSubmit" />
                     </div>
                 </div>
             </div>
@@ -146,6 +146,17 @@
                         npdYear: true
                     }
                     );
+
+                    $('.btnSubmit').click(function (e) {
+                        if ($('#NewspaperIds').val() == null ) {
+                            alert("Select at least one Newspaper.");
+                            e.preventDefault();
+                        }
+                        if ( $('#SalesManId').val() == "") {
+                            alert("Distributor is Required.");
+                            e.preventDefault();
+                        }
+                    })
 
 
 

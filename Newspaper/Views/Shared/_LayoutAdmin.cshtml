@@ -42,6 +42,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+          var RootUrl = '@Url.Content("~/")';
+    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -66,7 +69,7 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         @*<i class="fa fa-user fa-fw">*@
-                        @Session["userName"].ToString() &nbsp; <img class ="Circle" src="@Session["imageUrl"].ToString()"  onerror="this.onload = null; this.src='/img/1528439513gorkhapatra-mlogo.gif';" width="35" height="35" /> <i class="fa fa-caret-down"></i>
+                        @Session["userName"].ToString() &nbsp; <img class ="Circle" src="@Session["imageUrl"].ToString()"  onerror="this.onload = null; this.src='http://202.45.146.134/gdms2/img/1528439513gorkhapatra-mlogo.gif';" width="35" height="35" /> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
 
